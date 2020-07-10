@@ -1,14 +1,15 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
-WhiteList = ['/', '/index.html']
+WhiteList_GET = ['/', '/index.html']
+WhiteList_POST = []
 
 
 class requestHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
 
-        if(self.path not in WhiteList):
-            self.send_response(403)
+        if(self.path not in WhiteList_GET):
+            self.send_response(404)
             self.end_headers()
             return
 
@@ -26,6 +27,11 @@ class requestHandler(BaseHTTPRequestHandler):
         self.wfile.write(bytes(page, 'utf-8'))
 
     def do_POST(self):
+
+        if(self.path not in WhiteList_POST):
+            self.send_response(404)
+            self.end_headers()
+            return
         self.send_header('content-type', 'text/html')
         self.end_headers()
 
