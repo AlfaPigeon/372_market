@@ -1,0 +1,90 @@
+
+@import url(http://fonts.googleapis.com/css?family=Exo:100,200,400);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+
+.body{
+    position: fixed;
+    overflow-y: scroll;
+    width: 100%;
+	top: -20px;
+	left: -20px;
+	right: -40px;
+	bottom: -40px;
+	width: auto;
+	height: auto;
+	background-image: url(https://wallpaperplay.com/walls/full/5/8/5/76997.jpg);
+	background-size: cover;
+	-webkit-filter: blur(0px);
+
+}
+
+
+
+.header{
+	position: absolute;
+	top:calc(50% - 200px);
+	left: calc(50% - 200px);
+
+}
+
+.header div{
+	float: left;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 40px;
+	font-weight: 200;
+  font-weight:bold;
+
+}
+
+.header div span{
+	color: #990000 ;
+
+}
+
+.secenekler{
+	position: absolute;
+	top: calc(50% - 75px);
+	left: calc(50% - 100px);
+	height: 150px;
+	width: 350px;
+	padding: 5px;
+
+}
+
+
+.secenekler input[type=button]{
+	width: 200px;
+	height: 35px;
+	background: #fff;
+	border: 3px solid #111;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 20px;
+	font-weight: 400;
+	margin-top: 25px;
+}
+
+
+.secenekler input[type=button]:hover{
+	opacity: 0.8;
+}
+
+.secenekler input[type=button]:active{
+	opacity: 0.6;
+}
+
+.secenekler input[type=button]:focus{
+	outline: none;
+}
+
+
+::-webkit-input-placeholder{
+   color: rgba(255,255,255,0.6);
+}
+
+::-moz-input-placeholder{
+   color: rgba(255,255,255,0.6);
+}

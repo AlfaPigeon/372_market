@@ -3,173 +3,40 @@
 
 <head>
 
-  <meta charset="UTF-8">
+	<meta charset="UTF-8">
 
-  <title>Login</title>
+	<title>Login</title>
 
-    <style>
-@import url(http://fonts.googleapis.com/css?family=Exo:100,200,400);
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
-
-
-
-.body{
-    position: fixed;
-    overflow-y: scroll;
-    width: 100%;
-	top: -20px;
-	left: -20px;
-	right: -40px;
-	bottom: -40px;
-	width: auto;
-	height: auto;
-	background-image: url(https://www.gemius.com/files/PL/Fotolia_70869411_Subscription_Monthly_M.jpg);
-	background-size: cover;
-	-webkit-filter: blur(0px);
-
-}
-
-
-
-.header{
-	position: absolute;
-	top: calc(50% - 70px);
-	left: calc(50% - 255px);
-}
-
-.header div{
-	float: left;
-	color: #fff;
-	font-family: 'Exo', sans-serif;
-	font-size: 40px;
-	font-weight: 200;
-  font-weight:bold;
-}
-
-.header div span{
-	color: #990000 ;
-
-}
-
-.login{
-	position: absolute;
-	top: calc(50% - 75px);
-	left: calc(50% - 2px);
-	height: 150px;
-	width: 350px;
-	padding: 10px;
-
-}
-
-.login input[type=text]{
-	width: 250px;
-	height: 30px;
-	background: transparent;
-	border: 1px solid rgba(255,255,255,0.6);
-	border-radius: 2px;
-	color: #fff;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	padding: 4px;
-}
-
-.login input[type=password]{
-	width: 250px;
-	height: 30px;
-	background: transparent;
-	border: 1px solid rgba(255,255,255,0.6);
-	border-radius: 2px;
-	color: #fff;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	padding: 4px;
-	margin-top: 10px;
-}
-
-.login input[type=button]{
-	width: 260px;
-	height: 35px;
-	background: #fff;
-	border: 1px solid #fff;
-	cursor: pointer;
-	border-radius: 2px;
-	color: #a18d6c;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	padding: 6px;
-	margin-top: 10px;
-}
-
-.login input[type=button]:hover{
-	opacity: 0.8;
-}
-
-.login input[type=button]:active{
-	opacity: 0.6;
-}
-
-.login input[type=text]:focus{
-	outline: none;
-	border: 1px solid rgba(255,255,255,0.9);
-}
-
-.login input[type=password]:focus{
-	outline: none;
-	border: 1px solid rgba(255,255,255,0.9);
-}
-
-.login input[type=button]:focus{
-	outline: none;
-}
-
-::-webkit-input-placeholder{
-   color: rgba(255,255,255,0.6);
-}
-
-::-moz-input-placeholder{
-   color: rgba(255,255,255,0.6);
-}
-</style>
-
-
+	<link rel="stylesheet" type="text/css" href="/css/login.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 
 <body oncontextmenu="return false">
 
-  <div class="body"></div>
-		<div class="grad"></div>
-		<div class="header">
-			<div>372<span>Market</span></div>
-		</div>
-		<br>
-		<form name="login">
+	<div class="body"></div>
+	<div class="grad"></div>
+	<div class="header">
+		<div>372<span>Market</span></div>
+	</div>
+	<br>
+
+	<form name="login" action="/api/login" method="post">
 		<div class="login">
-				<input type="text" placeholder="Kullanıcı Adınız" name="userid"><br>
-				<input type="password" placeholder="Sifre" name="pswrd"><br>
-				<input type="button" onclick="check(this.form)" value="Login"/>
+			<input type="text" placeholder="Kullanıcı Adınız" name="userid"><br>
+			<input type="password" placeholder="Sifre" name="pswrd"><br>
+			<button type="submit">Login</button>
 		</div>
+	</form>
+
+	<script language="javascript">
+		$(function () {
 
 
 
-</form>
-<script language="javascript">
-function check(form)
-{
+		});
 
- if(form.userid.value == "admin" && form.pswrd.value == "123456")
-  {
-    alert("Sisteme başarıyla giriş yaptınız.")
-    window.open('./main.html')
-  }
- else
- {
-   alert("Kullanıcı adı veya şifre hatalı !")
-  }
-}
-</script>
+	</script>
 </body>
+
 </html>
