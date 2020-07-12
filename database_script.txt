@@ -1,0 +1,122 @@
+CREATE DATABASE "372_market"
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
+
+CREATE TABLE LOGIN
+	(Kullanici_id		CHAR(9)		NOT NULL,
+	 Kullanici_parola	VARCHAR(20)		NOT NULL,
+	 is_admin		BOOLEAN		NOT NULL,
+	 PRIMARY KEY(Kullanici_id)
+	);
+	
+CREATE TABLE KULLANICI_ILETISIM
+	(Kullanici_iletisim_id		CHAR(9)		NOT NULL,
+	 telefon		CHAR(10),
+	 adres		VARCHAR(30),
+	 email		VARCHAR(30),
+	 PRIMARY KEY(Kullanici_iletisim_id)
+	);
+
+CREATE TABLE URUN_DETAY
+	(Urun_detay_id		CHAR(9)		NOT NULL,
+	 Detay_aciklamasi		VARCHAR(100),
+	 Uretici_firma		VARCHAR(20),
+	 Fiyat		INT	NOT NULL,
+	 PRIMARY KEY(Urun_detay_id)
+	);
+	
+CREATE TABLE URUN
+	(Urun_id		CHAR(9)		NOT NULL,
+	 Isim			VARCHAR(20)		NOT NULL,
+	 Aciklama		VARCHAR(100),
+	 Urun_detay_id		CHAR(9)		NOT NULL,
+	 PRIMARY KEY(Urun_id),
+	 FOREIGN KEY(Urun_detay_id) REFERENCES URUN_DETAY(Urun_detay_id)
+	);
+
+CREATE TABLE SIPARIS
+	(Siparis_id	CHAR(9)		NOT NULL,
+	 Fiyat		INT		NOT NULL,
+	 Urun_id	CHAR(9)		NOT NULL,
+	 Tarih		DATE		NOT NULL,
+	 Kargo_bilgisi		VARCHAR(20),
+	 PRIMARY KEY(Siparis_id),
+	 FOREIGN KEY(Urun_id) REFERENCES URUN(Urun_id)
+	);
+
+CREATE TABLE DUKKAN_ILETISIM
+	(Dukkan_iletisim_id		CHAR(9)		NOT NULL,
+	 tel		CHAR(10)	NOT NULL,
+	 adres		VARCHAR(30),
+	 fax		CHAR(10),
+	 email		VARCHAR(30),
+	 PRIMARY KEY(Dukkan_iletisim_id)
+	);
+
+CREATE TABLE DUKKAN
+	(Dukkan_id		CHAR(9)		NOT NULL,
+	 Sahip			VARCHAR(20)		NOT NULL,
+	 Isim			VARCHAR(20)		NOT NULL,
+	 Dogrulanmis		BOOLEAN,
+	 Dukkan_puani		FLOAT,
+	 Dukkan_iletisim_id		CHAR(9)		NOT NULL,
+	 PRIMARY KEY(Dukkan_id),
+	 FOREIGN KEY(Dukkan_iletisim_id) REFERENCES DUKKAN_ILETISIM(Dukkan_iletisim_id)
+	);
+
+CREATE TABLE ENVANTER
+	(Envanter_id		CHAR(9)		NOT NULL,
+	 Dukkan_id		CHAR(9)		NOT NULL,
+	 Urun_id		CHAR(9)		NOT NULL,
+	 Miktar		INT		NOT NULL,
+	 PRIMARY KEY(Envanter_id),
+	 FOREIGN KEY(Dukkan_id) REFERENCES DUKKAN(Dukkan_id),
+	 FOREIGN KEY(Urun_id) REFERENCES URUN(Urun_id)
+	);
+
+CREATE TABLE SATIS
+	(Satis_id		CHAR(9)		NOT NULL,
+	 Dukkan_id		CHAR(9)		NOT NULL,
+	 Urun_id		CHAR(9)		NOT NULL,
+	 Miktar_id		CHAR(9)		NOT NULL,
+	 PRIMARY KEY(Satis_id),
+	 FOREIGN KEY(Dukkan_id) REFERENCES DUKKAN(Dukkan_id),
+	 FOREIGN KEY(Urun_id) REFERENCES URUN(Urun_id)
+	);
+
+CREATE TABLE KULLANICI
+	(Kullanici_id		CHAR(9)		NOT NULL,
+	 Isim		VARCHAR(15)		NOT NULL,
+	 Soyisim		VARCHAR(15)		NOT NULL,
+	 Kullanici_iletisim_id		CHAR(9)		NOT NULL,
+	 PRIMARY KEY(Kullanici_id),
+	 FOREIGN KEY(Kullanici_iletisim_id) REFERENCES KULLANICI_ILETISIM(Kullanici_iletisim_id)
+	);
+
+CREATE TABLE ODEME
+	(Odeme_id	CHAR(9)		NOT NULL,
+	 Urun_id	CHAR(9)		NOT NULL,
+	 Kullanici_id		CHAR(9)		NOT NULL,
+	 Odenen_miktar		FLOAT		NOT NULL,
+	 Dukkan_id		CHAR(9)		NOT NULL,
+	 PRIMARY KEY(Odeme_id),
+	 FOREIGN KEY(Urun_id) REFERENCES URUN(Urun_id),
+	 FOREIGN KEY(Kullanici_id) REFERENCES KULLANICI(Kullanici_id),
+	 FOREIGN KEY(Dukkan_id) REFERENCES DUKKAN(Dukkan_id)
+	);
+
+CREATE TABLE GOREVLI
+	(gorevli_id		CHAR(9)		NOT NULL,
+	 Kullanici_id		CHAR(9)		NOT NULL,
+	 Dukkan_id		CHAR(9)		NOT NULL,
+	 PRIMARY KEY(gorevli_id),
+	 FOREIGN KEY(Kullanici_id) REFERENCES KULLANICI(Kullanici_id),
+	 FOREIGN KEY(Dukkan_id) REFERENCES DUKKAN(Dukkan_id)
+	);
+
+
+
+
+
