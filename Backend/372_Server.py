@@ -1,6 +1,6 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
-
-WhiteList_GET = ['/', '/index', '/login',
+from urllib.parse import urlparse
+WhiteList_GET = ['/', '/index', '/login','/sale',
                  '/css/index.css', '/css/test.css', '/css/login.css']
 WhiteList_POST = ['/api/login']
 
@@ -35,6 +35,8 @@ class requestHandler(BaseHTTPRequestHandler):
             return self.index_GET()
         elif(self.path == "/login"):
             return self.login_GET()
+        elif(self.path == "/sale"):
+            return self.sale_GET()
 
     def POST_API(self):
         if(self.path == '/api/login'):
@@ -42,7 +44,7 @@ class requestHandler(BaseHTTPRequestHandler):
 
     def index_GET(self):
         try:
-            page = open("../Frontend/index.html").read()
+            page = open("Frontend/index.html").read()
             self.send_response(200)
         except:
             page = "<b>"+"No page here! 404"+"</b>"
@@ -53,7 +55,7 @@ class requestHandler(BaseHTTPRequestHandler):
 
     def login_GET(self):
         try:
-            page = open("../Frontend/login.html").read()
+            page = open("Frontend/login.html").read()
             self.send_response(200)
         except:
             page = "<b>"+"No page here! 404"+"</b>"
@@ -61,10 +63,21 @@ class requestHandler(BaseHTTPRequestHandler):
         self.send_header('content-type', 'text/html')
         self.end_headers()
         return page
-
+    def sale_GET(self):
+        try:
+            layout = open("Frontend/Layout.html").read()
+            page = open("Frontend/sale.html").read()
+            page = layout.replace("@content",page).replace("@title","Product Name")
+            self.send_response(200)
+        except:
+            page = "<b>"+"No page here! 404"+"</b>"
+            self.send_response(404)
+        self.send_header('content-type', 'text/html')
+        self.end_headers()
+        return page
     def css_GET(self):
         try:
-            page = open("../Frontend"+self.path).read()
+            page = open("Frontend"+self.path).read()
             self.send_response(200)
         except:
             page = "<b>"+"No css here! 404"+"</b>"
@@ -75,10 +88,10 @@ class requestHandler(BaseHTTPRequestHandler):
 
     def js_GET(self):
         try:
-            page = open("../Frontend"+self.path).read()
+            page = open("Frontend"+self.path).read()
             self.send_response(200)
         except:
-            page = "<b>"+"No css here! 404"+"</b>"
+            page = "<b>"+"No js here! 404"+"</b>"
             self.send_response(404)
         self.end_headers()
         return page
@@ -97,6 +110,7 @@ class requestHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(bytes("ok", 'utf-8'))
         return True
+
 
 
 def main():
