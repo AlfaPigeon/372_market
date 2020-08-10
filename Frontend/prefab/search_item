@@ -1,0 +1,11 @@
+                <li style="position: relative;float: left;margin-left: 10px;cursor: pointer;" onclick="window.location='/sale?id=@product_id'">
+                    <div class="card bg-light mb-3" style="max-width: 25rem;max-height: 25rem;color:black">
+                        <div class="card-header">@product_name</div>
+                        <div class="card-body container">
+                            <img class="fit"
+                                src="@product_image"
+                                alt="Some product" style="max-width:50%; max-height:100%;"
+                        </div>
+                        <div class="card-footer">@product_price</div>
+                    </div>
+                </li>

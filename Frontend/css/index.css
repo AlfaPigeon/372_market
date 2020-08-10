@@ -3,18 +3,12 @@
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
 
 .body{
-    position: fixed;
-    overflow-y: scroll;
+
+   
     width: 100%;
-	top: -20px;
-	left: -20px;
-	right: -40px;
-	bottom: -40px;
-	width: auto;
-	height: auto;
+	height: 100%;
 	background-image: url(https://wallpaperplay.com/walls/full/5/8/5/76997.jpg);
-	background-size: cover;
-	-webkit-filter: blur(0px);
+	min-height: 800px;
 
 }
 
