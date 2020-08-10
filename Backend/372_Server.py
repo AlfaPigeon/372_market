@@ -1,13 +1,30 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse
-WhiteList_GET = ['/', '/index', '/login', '/sale', '/search', '/profile',
+from http.cookies import SimpleCookie
+from pg import DB
+
+WhiteList_GET = ['/', '/index', '/login', '/sale', '/search', '/profile', '/register',
                  '/css/index.css', '/css/test.css', '/css/login.css']
 WhiteList_POST = ['/api/login']
+
+nologin = ['/login', '/register', '/css/index.css',
+           '/css/test.css', '/css/login.css', '/api/login']
+db = None
 
 
 class requestHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
+        self.cookies = SimpleCookie(self.headers.get('Cookie'))
+        try:
+            self.userid = self.cookies['id'].value
+        except:
+            path = self.path.split("?")[0]
+            if(path not in nologin):
+                self.send_response(404)
+                return
+
+        # check id with data base
 
         if(self.path.split("?")[0] not in WhiteList_GET):
             self.send_response(404)
@@ -19,6 +36,14 @@ class requestHandler(BaseHTTPRequestHandler):
         self.wfile.write(bytes(page, 'utf-8'))
 
     def do_POST(self):
+        self.cookies = SimpleCookie(self.headers.get('Cookie'))
+        try:
+            self.userid = self.cookies['id'].value
+        except:
+            path = self.path.split("?")[0]
+            if(path not in nologin):
+                self.send_response(404)
+                return
 
         if(self.path not in WhiteList_POST):
             self.send_response(404)
@@ -157,16 +182,26 @@ class requestHandler(BaseHTTPRequestHandler):
         return page
 
     def login_form_POST(self):
+        self.cookies = SimpleCookie()
         content_length = int(self.headers['Content-Length'])
         body = self.rfile.read(content_length).decode('utf-8')
-        print(body)
+
+        username = body.split("&")[0].split("=")[1]
+        passwd = body.split("&")[1].split("=")[1]
+
+        print(username, passwd)
+
+        self.userid = db.query("Select id From public.\"login\" Where username=\'" +
+                               username+"\' and password=\'"+passwd+"\'")[0]
+        self.userid = int(self.userid[0])
+        
+        #self.send_header('Set-Cookie', "id="+str(self.userid))
+        self.cookies["id"] = self.userid
+        self.cookies["id"]["path"]="/"
+        print(self.cookies.output())
 
         self.send_response(301)
-        if(body.split("&")[1].split("=")[1] == "123"):
-            self.send_header('Location', '/')
-        else:
-            self.send_header('Location', '/login')
-
+        self.send_header('Location', '/')
         self.end_headers()
         self.wfile.write(bytes("ok", 'utf-8'))
         return True
@@ -179,4 +214,6 @@ def main():
 
 
 if __name__ == "__main__":
+    db = DB(dbname='372_market', host='localhost',
+            port = 5432, user = 'postgres', passwd = '123')
     main()
