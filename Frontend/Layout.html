@@ -46,8 +46,9 @@
 
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" href="/profile">Profile</a>
-                        <a class="dropdown-item" href="/basket">My Basket</a>
-                        <a class="dropdown-item" href="/logout">logout</a>
+                        <a class="dropdown-item" href="/profile_edit">Edit Profile</a>
+                        <a class="dropdown-item" type="button" onclick="$.cookie('id', '', { expires: -1 });return false" href="/login">logout</a>
+                        
                     </div>
                 </div>
             </div>
